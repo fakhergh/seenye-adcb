@@ -1,0 +1,37 @@
+{
+  "LoginForm": {
+    "inputs": {
+      "email": "Email address",
+      "password": "Password"
+    },
+    "buttons": {
+      "login": "Login"
+    }
+  },
+  "LoginScreen": {
+    "buttons": {
+      "register": "Register"
+    },
+    "labels": {
+      "register": "Don't have an account?"
+    }
+  },
+  "RegisterForm": {
+    "inputs": {
+      "name": "Full Name",
+      "email": "Email address",
+      "password": "Password"
+    },
+    "buttons": {
+      "register": "Register"
+    }
+  },
+  "RegisterScreen": {
+    "buttons": {
+      "login": "Login"
+    },
+    "labels": {
+      "login": "Already have an account?"
+    }
+  }
+}
