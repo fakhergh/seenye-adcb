@@ -2,7 +2,7 @@ import { createTheme } from '@shopify/restyle';
 
 import { colors } from '@/styles/colors';
 import { ButtonVariants, buttonVariants } from '@/styles/components/button';
-import { lightIconColors } from '@/styles/components/icon';
+import { iconColors } from '@/styles/components/icon';
 import { ShadowVariants, shadowVariants } from '@/styles/components/shadow';
 import {
   TextVariants,
@@ -48,7 +48,7 @@ const baseTheme = {
 
 const theme = createTheme({
   ...baseTheme,
-  iconColors: lightIconColors,
+  iconColors,
   colors,
   typographyVariants,
   buttonVariants,

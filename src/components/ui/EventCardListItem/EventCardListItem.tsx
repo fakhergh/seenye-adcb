@@ -35,15 +35,15 @@ export function EventCardListItem({
       overflow="hidden"
       onPress={onPress}>
       <Image aspectRatio={2} bg="backgroundGray" source={{ uri: imageUrl }} />
-      <Box px="md" py="sm" flexDirection="row">
+      <Box px="md" py="md" flexDirection="row">
         <Box flex={1}>
-          <Typography variant="h5">{title}</Typography>
+          <Typography variant="h6">{title}</Typography>
           <Typography variant="bodySmall">
             {formatDate(dateTime, undefined, DateTime.DATE_MED)}
           </Typography>
         </Box>
         <IconButton
-          size="lg"
+          size="md"
           iconName={isFavorite ? 'bookmark-filled' : 'bookmark-outlined'}
           color={isFavorite ? iconColors.primary : iconColors.dark}
           onPress={() => onFavoriteToggle?.(!isFavorite)}

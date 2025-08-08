@@ -13,6 +13,7 @@ export type AppStackParams = {
   EventDetail: {
     id: string;
   };
+  Search: undefined;
   Favorites: undefined;
   LanguageSetting: undefined;
 };

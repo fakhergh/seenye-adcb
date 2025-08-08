@@ -11,6 +11,8 @@ export const EventAdapter = {
    *          - `date`: Date and time of the event, extracted from nested fields.
    */
   fromApi(raw: RawEvent): Event {
+    const rawVenue = raw._embedded.venues[0];
+
     return {
       // Directly map the event's ID
       id: raw.id,
@@ -22,6 +24,18 @@ export const EventAdapter = {
       date: raw.dates.start.dateTime,
 
       imageUrl: raw.images[0].url,
+
+      venue: {
+        id: rawVenue.id,
+        name: rawVenue.name,
+        city: rawVenue.city.name,
+        country: rawVenue.country.name,
+        address: rawVenue.address.line1,
+        location: {
+          latitude: Number(rawVenue.location.latitude),
+          longitude: Number(rawVenue.location.longitude),
+        },
+      },
     };
   },
 };

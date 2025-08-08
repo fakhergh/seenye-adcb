@@ -1,4 +1,33 @@
 {
+  "RootStack": {
+    "routes": {
+      "homeTab": {
+        "title": ""
+      },
+      "search": {
+        "title": ""
+      },
+      "eventDetail": {
+        "title": ""
+      },
+      "favorites": {
+        "title": "Favorites"
+      },
+      "languageSetting": {
+        "title": "Language Settings"
+      }
+    }
+  },
+  "HomeTab": {
+    "routes": {
+      "home": {
+        "title": "Home"
+      },
+      "profile": {
+        "title": "Profile"
+      }
+    }
+  },
   "LoginForm": {
     "inputs": {
       "email": "Email address",
@@ -32,6 +61,20 @@
     },
     "labels": {
       "login": "Already have an account?"
+    }
+  },
+  "LanguageSettingScreen": {
+    "options": {
+      "english": "English",
+      "arabic": "Arabic"
+    }
+  },
+  "ProfileScreen": {
+    "settings": {
+      "favorites": "Favorites",
+      "languageSettings": "Language Settings",
+      "biometricAuthentication": "Biometric Authentication",
+      "logout": "Logout"
     }
   }
 }

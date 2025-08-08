@@ -1,1 +1,80 @@
-{}
+{
+  "RootStack": {
+    "routes": {
+      "homeTab": {
+        "title": ""
+      },
+      "search": {
+        "title": ""
+      },
+      "eventDetail": {
+        "title": ""
+      },
+      "favorites": {
+        "title": "المفضلة"
+      },
+      "languageSetting": {
+        "title": "إعدادات اللغة"
+      }
+    }
+  },
+  "HomeTab": {
+    "routes": {
+      "home": {
+        "title": "القائمة الرئيسية"
+      },
+      "profile": {
+        "title": "الملف الشخصي"
+      }
+    }
+  },
+  "LoginForm": {
+    "inputs": {
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور"
+    },
+    "buttons": {
+      "login": "تسجيل الدخول"
+    }
+  },
+  "LoginScreen": {
+    "buttons": {
+      "register": "إنشاء حساب"
+    },
+    "labels": {
+      "register": "ليس لديك حساب؟"
+    }
+  },
+  "RegisterForm": {
+    "inputs": {
+      "name": "الاسم الكامل",
+      "email": "البريد الإلكتروني",
+      "password": "كلمة المرور"
+    },
+    "buttons": {
+      "register": "إنشاء حساب"
+    }
+  },
+  "RegisterScreen": {
+    "buttons": {
+      "login": "تسجيل الدخول"
+    },
+    "labels": {
+      "login": "هل لديك حساب بالفعل؟"
+    }
+  },
+  "LanguageSettingScreen": {
+    "options": {
+      "english": "الإنجليزية",
+      "arabic": "العربية"
+    }
+  },
+  "ProfileScreen": {
+    "settings": {
+      "favorites": "المفضلة",
+      "languageSettings": "إعدادات اللغة",
+      "biometricAuthentication": "المصادقة البيومترية",
+      "logout": "تسجيل الخروج"
+    }
+  }
+}

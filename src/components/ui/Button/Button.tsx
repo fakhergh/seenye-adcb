@@ -6,13 +6,9 @@ import {
   useTheme,
 } from '@shopify/restyle';
 import { Fragment, useMemo } from 'react';
-import {
-  StyleProp,
-  TouchableOpacity,
-  TouchableOpacityProps,
-  ViewStyle,
-} from 'react-native';
+import { StyleProp, TouchableOpacityProps, ViewStyle } from 'react-native';
 
+import { Touchable } from '@/components/ui/Touchable/Touchable';
 import { Typography } from '@/components/ui/Typography/Typography';
 import { Theme } from '@/styles';
 import { responsiveValue } from '@/utils/resizer';
@@ -25,6 +21,7 @@ export interface ButtonProps
   color?: 'primary' | 'dark' | 'danger';
   leftIcon?: any;
   leftIconColor?: string;
+  dynamicHeight?: boolean;
 }
 
 const composedFunctions = composeRestyleFunctions(boxRestyleFunctions);
@@ -35,6 +32,7 @@ export function Button({
   color = 'primary',
   leftIcon: LeftIcon,
   leftIconColor,
+  dynamicHeight,
   ...props
 }: ButtonProps) {
   const restyle = useRestyle<Theme, any, any>(composedFunctions, props);
@@ -47,7 +45,7 @@ export function Button({
       flexDirection: 'row',
       alignItems: 'center',
       justifyContent: 'center',
-      height: responsiveValue(48),
+      height: dynamicHeight ? undefined : responsiveValue(48),
       borderRadius: borderRadii?.md,
       paddingHorizontal: spacing.lg,
       ...buttonVariants[variant][color],
@@ -57,6 +55,7 @@ export function Button({
       borderRadii?.md,
       buttonVariants,
       color,
+      dynamicHeight,
       restyle.style,
       spacing.lg,
       spacing.sm,
@@ -70,7 +69,7 @@ export function Button({
   );
 
   return (
-    <TouchableOpacity activeOpacity={0.6} {...props} style={style}>
+    <Touchable activeOpacity={0.6} {...props} style={style}>
       {!!LeftIcon && <LeftIcon width={24} height={24} color={leftIconColor} />}
       <Typography textAlign="center" variant="button" style={textStyle}>
         {Array.isArray(children)
@@ -79,6 +78,6 @@ export function Button({
             ))
           : children}
       </Typography>
-    </TouchableOpacity>
+    </Touchable>
   );
 }

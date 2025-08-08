@@ -49,6 +49,7 @@ export const LoginScreen = withSafeAreaView(function LoginScreen({
           {t('labels.register')}
         </Typography>
         <Button
+          dynamicHeight
           px="none"
           variant="text"
           color="primary"

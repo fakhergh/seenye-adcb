@@ -32,7 +32,7 @@ export function EventCardListItemContainer({
   const onFavoriteToggle = useCallback(
     (b: boolean) => {
       if (b) {
-        const event: Event = {
+        const event: Partial<Event> = {
           id,
           name: props.title,
           date: props.dateTime,

@@ -1,5 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
+import { useTranslation } from 'react-i18next';
 
 import { Box } from '@/components/ui/Box/Box';
 import { Icon, IconFilledName } from '@/components/ui/Icon/Icon';
@@ -8,7 +10,8 @@ import { Typography } from '@/components/ui/Typography/Typography';
 import { HomeScreen } from '@/screens/app/HomeScreen/HomeScreen';
 import { ProfileScreen } from '@/screens/app/ProfileScreen/ProfileScreen';
 import { Theme } from '@/styles';
-import { HomeTabStackParams } from '@/types/navigation';
+import { AppStackParams, HomeTabStackParams } from '@/types/navigation';
+import { uncapitalize } from '@/utils/formatter';
 import { responsiveValue } from '@/utils/resizer';
 
 const Tab = createBottomTabNavigator<HomeTabStackParams>();
@@ -20,12 +23,18 @@ const IconConfig: IconConfigProps = {
   Profile: 'user-circular-filled',
 };
 
-export function HomeTab() {
+interface HomeTabProps
+  extends NativeStackScreenProps<AppStackParams, 'HomeTab'> {}
+
+export function HomeTab({}: HomeTabProps) {
   const { colors } = useTheme<Theme>();
+
+  const { t } = useTranslation('HomeTab');
 
   return (
     <Tab.Navigator
       screenOptions={({ route: { name } }) => ({
+        title: t(`routes.${uncapitalize(name)}.title`),
         sceneStyle: { backgroundColor: colors.backgroundLight },
         headerTitle: () => (
           <Box flexDirection="row" alignItems="center" g="xs" mb="sm">
@@ -33,7 +42,7 @@ export function HomeTab() {
             <Typography variant="h4">Seenye</Typography>
           </Box>
         ),
-        headerTitleAlign: 'left',
+        //headerTitleAlign: 'left',
         headerShadowVisible: false,
         tabBarActiveTintColor: colors.activeTabBarIcon,
         tabBarInactiveTintColor: colors.inactiveTabBarIcon,

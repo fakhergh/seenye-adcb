@@ -5,17 +5,19 @@ import { I18nManager, TextInput, TextInputProps } from 'react-native';
 import { Theme } from '@/styles';
 import { responsiveValue } from '@/utils/resizer';
 
-export interface InputProps extends TextInputProps {}
+export interface InputProps extends TextInputProps {
+  headerHeight?: number;
+}
 
 export const inputHeight = responsiveValue(56);
 
-export function Input(props: InputProps) {
+export function Input({ headerHeight, ...props }: InputProps) {
   const { typographyVariants, spacing, colors, borderRadii } =
     useTheme<Theme>();
 
   const style = useMemo<TextInputProps['style']>(
     () => ({
-      height: inputHeight,
+      height: headerHeight ?? inputHeight,
       borderRadius: borderRadii.md,
       paddingHorizontal: spacing.lg,
       backgroundColor: colors.inputBackground,
@@ -25,6 +27,7 @@ export function Input(props: InputProps) {
     [
       borderRadii.md,
       colors.inputBackground,
+      headerHeight,
       spacing.lg,
       typographyVariants.input.dark,
     ],

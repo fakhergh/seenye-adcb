@@ -2,6 +2,8 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import RNBootSplash
+import GoogleMaps
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,6 +16,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
+    GMSServices.provideAPIKey("AIzaSyDBputnwZMQ7utMhOq2DMColto6RFGT6A0")
+    GMSServices.setMetalRendererEnabled(false)
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()
@@ -36,6 +40,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 class ReactNativeDelegate: RCTDefaultReactNativeFactoryDelegate {
   override func sourceURL(for bridge: RCTBridge) -> URL? {
     self.bundleURL()
+  }
+
+  override func customize(_ rootView: RCTRootView) {
+    super.customize(rootView)
+    RNBootSplash.initWithStoryboard("BootSplash", rootView: rootView)
   }
 
   override func bundleURL() -> URL? {

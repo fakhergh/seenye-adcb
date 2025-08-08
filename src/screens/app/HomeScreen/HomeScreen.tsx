@@ -1,9 +1,11 @@
+import { BottomTabScreenProps } from '@react-navigation/bottom-tabs';
 import { useScrollToTop } from '@react-navigation/native';
-import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
-import { useCallback, useMemo, useRef } from 'react';
-import { FlatList, ListRenderItem } from 'react-native';
+import { useCallback, useEffect, useMemo, useRef } from 'react';
+import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 
+import { Box } from '@/components/ui/Box/Box';
+import { IconButton } from '@/components/ui/IconButton/IconButton';
 import { EventCardListItemContainer } from '@/containers/EventCardListItemContainer/EventCardListItemContainer';
 import { useGetEvents } from '@/core/services/EventService';
 import { Event } from '@/core/types/event';
@@ -12,16 +14,19 @@ import { Theme } from '@/styles';
 import { RootStackParams } from '@/types/navigation';
 
 interface HomeScreenProps
-  extends NativeStackScreenProps<RootStackParams, 'Home'> {}
+  extends BottomTabScreenProps<RootStackParams, 'Home'> {}
 
-export function HomeScreen({}: HomeScreenProps) {
+export function HomeScreen({
+  navigation: { setOptions, navigate },
+}: HomeScreenProps) {
   const { spacing } = useTheme<Theme>();
 
   const ref = useRef(null);
 
   useScrollToTop(ref);
 
-  const { data, isLoading, hasNextPage, fetchNextPage } = useGetEvents();
+  const { data, isLoading, isFetchingNextPage, hasNextPage, fetchNextPage } =
+    useGetEvents();
 
   const items = useMemo(
     () => data?.pages.flatMap(page => page.items),
@@ -30,7 +35,7 @@ export function HomeScreen({}: HomeScreenProps) {
 
   const contentContainerStyle = useMemo(
     () => ({
-      paddingHorizontal: spacing['2xl'],
+      paddingHorizontal: spacing.xl,
       paddingVertical: spacing.lg,
       gap: spacing.lg,
     }),
@@ -51,6 +56,31 @@ export function HomeScreen({}: HomeScreenProps) {
 
   const keyExtractor = useCallback((item: Event) => item.id, []);
 
+  const onEndReached = useCallback(() => {
+    if (isLoading || !hasNextPage) return;
+    fetchNextPage().catch(console.error);
+  }, [fetchNextPage, hasNextPage, isLoading]);
+
+  const listFooterComponent = isFetchingNextPage ? (
+    <Box>
+      <ActivityIndicator />
+    </Box>
+  ) : null;
+
+  useEffect(() => {
+    setOptions({
+      headerRight: () => (
+        <IconButton
+          px="xl"
+          size="md"
+          iconName="search-filled"
+          color="dark"
+          onPress={() => navigate('Search')}
+        />
+      ),
+    });
+  }, [navigate, setOptions]);
+
   return (
     <Screen component="box" loading={isLoading}>
       <FlatList
@@ -60,10 +90,8 @@ export function HomeScreen({}: HomeScreenProps) {
         renderItem={renderItem}
         keyExtractor={keyExtractor}
         onEndReachedThreshold={0.3}
-        onEndReached={() => {
-          if (isLoading || !hasNextPage) return;
-          fetchNextPage().catch(console.error);
-        }}
+        onEndReached={onEndReached}
+        ListFooterComponent={listFooterComponent}
       />
     </Screen>
   );

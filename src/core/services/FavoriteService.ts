@@ -18,11 +18,11 @@ export function useGetFavorites(): Event[] {
 }
 
 export function useAddFavorite() {
-  return function (event: Event) {
+  return function (event: Partial<Event>) {
     const state = getStoredFavorites();
 
     const parsedState = JSON.parse(state);
-    parsedState[event.id] = event;
+    parsedState[event.id!] = event;
 
     storage.set(FAVORITES_STORAGE_KEY, JSON.stringify(parsedState));
   };

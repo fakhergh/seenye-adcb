@@ -12,7 +12,7 @@ export type IconColor = {
   white: string;
 };
 
-export const lightIconColors: IconColor = {
+export const iconColors: IconColor = {
   dark: palette.black,
   light: palette.white,
   primary: palette.primary,
@@ -22,11 +22,4 @@ export const lightIconColors: IconColor = {
   black: palette.black,
   gray: palette.gray400,
   white: palette.white,
-};
-
-export const darkIconColors: IconColor = {
-  ...lightIconColors,
-  light: palette.black,
-  gray: palette.gray600,
-  dark: palette.white,
 };

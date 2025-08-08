@@ -46,6 +46,7 @@ export const RegisterScreen = withSafeAreaView(function RegisterScreen({
           {t('labels.login')}
         </Typography>
         <Button
+          dynamicHeight
           variant="text"
           color="primary"
           onPress={() => navigation.goBack()}
