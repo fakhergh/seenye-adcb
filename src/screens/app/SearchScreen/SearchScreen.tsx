@@ -5,7 +5,6 @@ import {
   ActivityIndicator,
   FlatList,
   ListRenderItem,
-  Platform,
   TextInput,
 } from 'react-native';
 
@@ -81,7 +80,7 @@ export const SearchScreen = withSafeAreaView(function SearchScreen({
 
   const searchInputStyle = useMemo(
     () => ({
-      height: Platform.select({ ios: 40, default: 48 }),
+      height: 40,
       color: colors.textBlack,
     }),
     [colors.textBlack],
@@ -91,7 +90,7 @@ export const SearchScreen = withSafeAreaView(function SearchScreen({
     setOptions({
       headerBackTitle: '',
       headerTitle: () => (
-        <Box flex={1} ml="md" px="md" bg="backgroundGray" borderRadius="md">
+        <Box width="100%" ml="md" px="md" bg="backgroundGray" borderRadius="md">
           <TextInput
             style={searchInputStyle}
             selectionColor={colors.textPrimary}
