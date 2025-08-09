@@ -51,8 +51,6 @@
 	<false/>
 	<key>UIViewSemanticContentAttribute</key>
 	<string>Unspecified</string>
-	<key>GMSApiKey</key>
-    <string>$(GOOGLE_MAPS_API_KEY)</string>
     <key>NSFaceIDUsageDescription</key>
     <string>We use Face ID to securely authenticate you</string>
 </dict>
