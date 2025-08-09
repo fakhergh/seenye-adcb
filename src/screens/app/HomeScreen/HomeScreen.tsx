@@ -19,7 +19,7 @@ interface HomeScreenProps
 export function HomeScreen({
   navigation: { setOptions, navigate },
 }: HomeScreenProps) {
-  const { spacing } = useTheme<Theme>();
+  const { iconColors, spacing } = useTheme<Theme>();
 
   const ref = useRef(null);
 
@@ -58,12 +58,12 @@ export function HomeScreen({
 
   const onEndReached = useCallback(() => {
     if (isLoading || !hasNextPage) return;
-    fetchNextPage().catch(console.error);
+    fetchNextPage().catch(console.log);
   }, [fetchNextPage, hasNextPage, isLoading]);
 
   const listFooterComponent = isFetchingNextPage ? (
     <Box>
-      <ActivityIndicator />
+      <ActivityIndicator color={iconColors.primary} />
     </Box>
   ) : null;
 

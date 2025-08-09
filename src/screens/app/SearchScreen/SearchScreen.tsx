@@ -28,7 +28,7 @@ export const SearchScreen = withSafeAreaView(function SearchScreen({
 }: SearchScreenProps) {
   const { t, i18n } = useI18nTranslation('screens.SearchScreen');
 
-  const { colors, spacing } = useTheme<Theme>();
+  const { iconColors, colors, spacing } = useTheme<Theme>();
 
   const [query, setQuery] = useState('');
 
@@ -70,12 +70,12 @@ export const SearchScreen = withSafeAreaView(function SearchScreen({
 
   const onEndReached = useCallback(() => {
     if (isLoading || !hasNextPage) return;
-    fetchNextPage().catch(console.error);
+    fetchNextPage().catch(console.log);
   }, [fetchNextPage, hasNextPage, isLoading]);
 
   const listFooterComponent = isFetchingNextPage ? (
     <Box>
-      <ActivityIndicator />
+      <ActivityIndicator color={iconColors.primary} />
     </Box>
   ) : null;
 

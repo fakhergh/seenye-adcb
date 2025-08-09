@@ -18,11 +18,12 @@ export function useSecureStorage() {
           accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED,
           accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_ANY,
           securityLevel: Keychain.SECURITY_LEVEL.SECURE_HARDWARE,
+          storage: Keychain.STORAGE_TYPE.RSA,
           ...baseOptions,
         });
         return true;
       } catch (error) {
-        console.error('Error saving credentials:', error);
+        console.log('Error saving credentials:', error);
         return false;
       }
     },
@@ -42,7 +43,7 @@ export function useSecureStorage() {
       });
       return credentials || null;
     } catch (error) {
-      console.error('Error retrieving credentials:', error);
+      console.log('Error retrieving credentials:', error);
       return null;
     }
   }, [t]);
@@ -52,7 +53,7 @@ export function useSecureStorage() {
       await Keychain.resetGenericPassword(baseOptions);
       return true;
     } catch (error) {
-      console.error('Error resetting credentials:', error);
+      console.log('Error resetting credentials:', error);
       return false;
     }
   }, []);

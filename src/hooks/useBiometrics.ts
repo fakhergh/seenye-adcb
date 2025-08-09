@@ -20,7 +20,7 @@ export function useBiometrics() {
 
         return success;
       } catch (error) {
-        console.warn('Biometric auth failed:', error);
+        console.log('Biometric auth failed:', error);
         return false;
       }
     },
@@ -32,7 +32,6 @@ export function useBiometrics() {
   const checkBiometric = useCallback(async () => {
     try {
       const result = await biometrics.isSensorAvailable();
-
       setAvailable(result.available);
     } catch (e) {
       console.log(e);
@@ -40,7 +39,7 @@ export function useBiometrics() {
   }, []);
 
   useEffect(() => {
-    checkBiometric().catch(console.error);
+    checkBiometric().catch(console.log);
   }, [checkBiometric]);
 
   return { isAvailable, authenticate };

@@ -7,21 +7,21 @@ import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import { useCallback } from 'react';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
-import * as Keychain from 'react-native-keychain';
 
-import { LoginForm } from '@/components/forms/LoginForm/LoginForm';
+import {
+  LoginForm,
+  LoginFormValues,
+} from '@/components/forms/LoginForm/LoginForm';
 import { Box } from '@/components/ui/Box/Box';
 import { Button } from '@/components/ui/Button/Button';
 import { IconFaceIdFilled } from '@/components/ui/Icon/icons/filled/IconFaceIdFilled';
 import { IconAppLogo } from '@/components/ui/Icon/icons/various/IconAppLogo';
 import { Typography } from '@/components/ui/Typography/Typography';
-import {
-  KEYBOARD_AVOIDING_VIEW_BEHAVIOUR,
-  KEYCHAIN_TOKEN_SERVICE_KEY,
-} from '@/constants/config';
+import { KEYBOARD_AVOIDING_VIEW_BEHAVIOUR } from '@/constants/config';
 import { withSafeAreaView } from '@/hocs/withSafeAreaView';
 import { useBiometricSession } from '@/hooks/useBiometricSession';
 import { useI18nTranslation } from '@/hooks/useI18nTranslation';
+import { useSecureStorage } from '@/hooks/useSecureStorage';
 import { Screen } from '@/layouts/Screen/Screen';
 import { Theme } from '@/styles';
 import { RootStackParams } from '@/types/navigation';
@@ -38,19 +38,12 @@ export const LoginScreen = withSafeAreaView(function LoginScreen({
   const { t } = useI18nTranslation('screens.LoginScreen');
 
   const [biometricUserId] = useBiometricSession();
+  const { getCredentials } = useSecureStorage();
 
   const onBiometricsLogin = useCallback(async () => {
     try {
-      // todo:// i18n
-      const userCredentials = await Keychain.getGenericPassword({
-        authenticationPrompt: {
-          title: 'Biometric Authentication',
-          subtitle: 'Log in with Face ID / Touch ID',
-          description: 'Authenticate to continue',
-          cancel: 'Cancel',
-        },
-        service: KEYCHAIN_TOKEN_SERVICE_KEY,
-      });
+      const userCredentials = await getCredentials();
+      console.log('userCredentials: ', userCredentials);
 
       if (userCredentials) {
         await signInWithEmailAndPassword(
@@ -60,7 +53,24 @@ export const LoginScreen = withSafeAreaView(function LoginScreen({
         );
       }
     } catch (error) {
+      console.log('error: ', error);
+    }
+  }, [getCredentials]);
+
+  const onSubmit = useCallback(async (values: LoginFormValues) => {
+    try {
+      await signInWithEmailAndPassword(
+        getAuth(),
+        values.email,
+        values.password,
+      );
+    } catch (error: any) {
       console.log(error);
+      const { code } = error as FirebaseAuthTypes.NativeFirebaseAuthError;
+
+      if (code === 'auth/invalid-credential') {
+        console.log('invalid creds');
+      }
     }
   }, []);
 
@@ -78,26 +88,7 @@ export const LoginScreen = withSafeAreaView(function LoginScreen({
             />
           </Box>
 
-          <LoginForm
-            loading={false}
-            onSubmit={async values => {
-              try {
-                await signInWithEmailAndPassword(
-                  getAuth(),
-                  values.email,
-                  values.password,
-                );
-              } catch (error: any) {
-                console.log(error);
-                const { code } =
-                  error as FirebaseAuthTypes.NativeFirebaseAuthError;
-
-                if (code === 'auth/invalid-credential') {
-                  console.log('invalid creds');
-                }
-              }
-            }}
-          />
+          <LoginForm onSubmit={onSubmit} />
           {!!biometricUserId && (
             <Button
               leftIcon={IconFaceIdFilled}
