@@ -14,7 +14,7 @@ export interface LoginFormValues {
 
 const defaultValues: LoginFormValues = {
   email: 'fekhergh93@gmail.com',
-  password: '0000',
+  password: '000000',
 };
 
 export interface LoginFormProps
@@ -22,7 +22,7 @@ export interface LoginFormProps
 
 const validationSchema = yup.object().shape({
   email: yup.string().email().required(),
-  password: yup.string().required(),
+  password: yup.string().min(6).required(),
 });
 
 export function LoginForm({

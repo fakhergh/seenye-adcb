@@ -24,8 +24,6 @@
 	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>UIViewSemanticContentAttribute</key>
-    <string>Unspecified</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -51,5 +49,11 @@
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
+	<key>UIViewSemanticContentAttribute</key>
+	<string>Unspecified</string>
+	<key>GMSApiKey</key>
+    <string>$(GOOGLE_MAPS_API_KEY)</string>
+    <key>NSFaceIDUsageDescription</key>
+    <string>We use Face ID to securely authenticate you</string>
 </dict>
 </plist>

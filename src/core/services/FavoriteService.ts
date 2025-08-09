@@ -28,6 +28,12 @@ export function useAddFavorite() {
   };
 }
 
+export function useClearFavorites() {
+  return function () {
+    storage.delete(FAVORITES_STORAGE_KEY);
+  };
+}
+
 export function useDeleteFavorite() {
   return function (eventId: string) {
     const state = getStoredFavorites();

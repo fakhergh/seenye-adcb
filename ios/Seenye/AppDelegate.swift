@@ -2,6 +2,7 @@ import UIKit
 import React
 import React_RCTAppDelegate
 import ReactAppDependencyProvider
+import Firebase
 import RNBootSplash
 import GoogleMaps
 
@@ -16,8 +17,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     _ application: UIApplication,
     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil
   ) -> Bool {
-    GMSServices.provideAPIKey("AIzaSyDBputnwZMQ7utMhOq2DMColto6RFGT6A0")
+    //GMSServices.provideAPIKey("AIzaSyDBputnwZMQ7utMhOq2DMColto6RFGT6A0")
     GMSServices.setMetalRendererEnabled(false)
+    FirebaseApp.configure()
+
+    if let apiKey = Bundle.main.object(forInfoDictionaryKey: "GMSApiKey") as? String {
+            GMSServices.provideAPIKey(apiKey)
+        } else {
+            fatalError("Google Maps API key is missing in Info.plist")
+        }
+
     let delegate = ReactNativeDelegate()
     let factory = RCTReactNativeFactory(delegate: delegate)
     delegate.dependencyProvider = RCTAppDependencyProvider()

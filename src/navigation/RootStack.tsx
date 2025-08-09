@@ -1,5 +1,11 @@
+import {
+  FirebaseAuthTypes,
+  getAuth,
+  onAuthStateChanged,
+} from '@react-native-firebase/auth';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
+import { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 
 import { IconButton } from '@/components/ui/IconButton/IconButton';
@@ -21,9 +27,21 @@ export function RootStack() {
 
   const { t } = useTranslation('RootStack');
 
+  const [initializing, setInitializing] = useState(true);
+
+  const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
+
+  useEffect(() => {
+    return onAuthStateChanged(getAuth(), usr => {
+      setUser(usr);
+      if (initializing) setInitializing(false);
+    });
+  }, [initializing, user]);
+
+  if (initializing) return null;
+
   return (
     <Stack.Navigator
-      initialRouteName="HomeTab"
       screenOptions={({ navigation: { goBack }, route: { name } }) => ({
         title: t(`routes.${uncapitalize(name)}.title`),
         headerLeft: () => (
@@ -38,29 +56,31 @@ export function RootStack() {
         headerShadowVisible: false,
         contentStyle: { backgroundColor: colors.backgroundLight },
       })}>
-      <Stack.Group screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="Login" component={LoginScreen} />
-        <Stack.Screen name="Register" component={RegisterScreen} />
-      </Stack.Group>
-
-      <Stack.Group>
-        <Stack.Screen
-          name="HomeTab"
-          component={HomeTab}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="Search" component={SearchScreen} />
-        <Stack.Screen
-          name="EventDetail"
-          component={EventDetailScreen}
-          options={{ title: '', headerBackButtonDisplayMode: 'minimal' }}
-        />
-        <Stack.Screen name="Favorites" component={FavoritesScreen} />
-        <Stack.Screen
-          name="LanguageSetting"
-          component={LanguageSettingScreen}
-        />
-      </Stack.Group>
+      {!user ? (
+        <Stack.Group screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Login" component={LoginScreen} />
+          <Stack.Screen name="Register" component={RegisterScreen} />
+        </Stack.Group>
+      ) : (
+        <Stack.Group>
+          <Stack.Screen
+            name="HomeTab"
+            component={HomeTab}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="Search" component={SearchScreen} />
+          <Stack.Screen
+            name="EventDetail"
+            component={EventDetailScreen}
+            options={{ title: '', headerBackButtonDisplayMode: 'minimal' }}
+          />
+          <Stack.Screen name="Favorites" component={FavoritesScreen} />
+          <Stack.Screen
+            name="LanguageSetting"
+            component={LanguageSettingScreen}
+          />
+        </Stack.Group>
+      )}
     </Stack.Navigator>
   );
 }

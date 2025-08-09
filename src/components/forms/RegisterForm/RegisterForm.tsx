@@ -18,13 +18,13 @@ export interface RegisterFormProps extends BaseFormProps<RegisterFormValues> {}
 const defaultValues: RegisterFormValues = {
   name: 'Fakher Gh',
   email: 'fekhergh93@gmail.com',
-  password: '0000',
+  password: '000000',
 };
 
 const validationSchema = yup.object().shape({
   name: yup.string().required(),
   email: yup.string().email().required(),
-  password: yup.string().required(),
+  password: yup.string().min(6).required(),
 });
 
 export function RegisterForm({

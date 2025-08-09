@@ -1,3 +1,8 @@
+import {
+  createUserWithEmailAndPassword,
+  FirebaseAuthTypes,
+  getAuth,
+} from '@react-native-firebase/auth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import { useTranslation } from 'react-i18next';
@@ -34,7 +39,24 @@ export const RegisterScreen = withSafeAreaView(function RegisterScreen({
           />
         </Box>
 
-        <RegisterForm onSubmit={() => navigation.replace('HomeTab')} />
+        <RegisterForm
+          onSubmit={async values => {
+            try {
+              const userCredentials = await createUserWithEmailAndPassword(
+                getAuth(),
+                values.email,
+                values.password,
+              );
+              await userCredentials.user.updateProfile({
+                displayName: values.name,
+              });
+            } catch (error: any) {
+              const { code } =
+                error as FirebaseAuthTypes.NativeFirebaseAuthError;
+              console.log(code);
+            }
+          }}
+        />
       </Box>
 
       <Box
