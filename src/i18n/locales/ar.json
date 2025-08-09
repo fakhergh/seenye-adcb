@@ -63,6 +63,11 @@
         "confirm": "تأكيد",
         "cancel": "إلغاء"
       }
+    },
+    "SearchScreen": {
+      "placeholders": {
+        "search": "بحث..."
+      }
     }
   },
   "containers": {
@@ -99,11 +104,6 @@
         "favorites": "المفضلة",
         "languageSettings": "إعدادات اللغة",
         "logout": "تسجيل الخروج"
-      }
-    },
-    "SearchScreen": {
-      "placeholders": {
-        "search": "بحث..."
       }
     }
   },

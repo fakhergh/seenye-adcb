@@ -63,6 +63,11 @@
         "confirm": "Confirm",
         "cancel": "Cancel"
       }
+    },
+    "SearchHeader": {
+      "placeholders": {
+        "search": "Search..."
+      }
     }
   },
   "containers": {
@@ -99,11 +104,6 @@
         "favorites": "Favorites",
         "languageSettings": "Language Settings",
         "logout": "Logout"
-      }
-    },
-    "SearchScreen": {
-      "placeholders": {
-        "search": "Search..."
       }
     }
   },

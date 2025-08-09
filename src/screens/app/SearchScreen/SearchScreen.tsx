@@ -1,20 +1,15 @@
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import { useCallback, useEffect, useMemo, useState } from 'react';
-import {
-  ActivityIndicator,
-  FlatList,
-  ListRenderItem,
-  TextInput,
-} from 'react-native';
+import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 
 import { Box } from '@/components/ui/Box/Box';
+import { SearchHeader } from '@/components/ui/SearchHeader/SearchHeader';
 import { EventCardListItemContainer } from '@/containers/EventCardListItemContainer/EventCardListItemContainer';
 import { useGetEvents } from '@/core/services/eventService';
 import { Event } from '@/core/types/event';
 import { withSafeAreaView } from '@/hocs/withSafeAreaView';
 import { useDebounce } from '@/hooks/useDebounce';
-import { useI18nTranslation } from '@/hooks/useI18nTranslation';
 import { Screen } from '@/layouts/Screen/Screen';
 import { Theme } from '@/styles';
 import { RootStackParams } from '@/types/navigation';
@@ -25,9 +20,7 @@ interface SearchScreenProps
 export const SearchScreen = withSafeAreaView(function SearchScreen({
   navigation: { setOptions },
 }: SearchScreenProps) {
-  const { t, i18n } = useI18nTranslation('screens.SearchScreen');
-
-  const { iconColors, colors, spacing } = useTheme<Theme>();
+  const { iconColors, spacing } = useTheme<Theme>();
 
   const [query, setQuery] = useState('');
 
@@ -78,39 +71,12 @@ export const SearchScreen = withSafeAreaView(function SearchScreen({
     </Box>
   ) : null;
 
-  const searchInputStyle = useMemo(
-    () => ({
-      height: 40,
-      color: colors.textBlack,
-    }),
-    [colors.textBlack],
-  );
-
   useEffect(() => {
     setOptions({
       headerBackTitle: '',
-      headerTitle: () => (
-        <Box width="100%" ml="md" px="md" bg="backgroundGray" borderRadius="md">
-          <TextInput
-            style={searchInputStyle}
-            selectionColor={colors.textPrimary}
-            placeholderTextColor={colors.textGray}
-            autoFocus
-            textAlign={i18n.language === 'ar' ? 'right' : 'left'}
-            placeholder={t('placeholders.search')}
-            onChangeText={setQuery}
-          />
-        </Box>
-      ),
+      header: () => <SearchHeader onSearchTextChange={setQuery} />,
     });
-  }, [
-    colors.textGray,
-    colors.textPrimary,
-    i18n.language,
-    searchInputStyle,
-    setOptions,
-    t,
-  ]);
+  }, [setOptions]);
 
   return (
     <Screen component="box" loading={isLoading}>
