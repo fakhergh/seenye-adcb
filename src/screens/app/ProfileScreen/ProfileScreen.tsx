@@ -3,88 +3,37 @@ import {
   getAuth,
   onAuthStateChanged,
   signOut,
-  validatePassword,
 } from '@react-native-firebase/auth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useCallback, useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
-import { Alert } from 'react-native';
-import * as Keychain from 'react-native-keychain';
 
 import { Box } from '@/components/ui/Box/Box';
 import { SettingItem } from '@/components/ui/SettingItem/SettingItem';
 import { Typography } from '@/components/ui/Typography/Typography';
-import { KEYCHAIN_TOKEN_SERVICE_KEY } from '@/constants/config';
-import { useBiometricAuthSession } from '@/core/hooks/useBiometricAuthSession';
+import { BiometricSettingItemContainer } from '@/containers/BiometricSettingItemContainer/BiometricSettingItemContainer';
 import { useClearFavorites } from '@/core/services/FavoriteService';
+import { useBiometrics } from '@/hooks/useBiometrics';
+import { useI18nTranslation } from '@/hooks/useI18nTranslation';
 import { RootStackParams } from '@/types/navigation';
 
 interface ProfileScreenProps
   extends NativeStackScreenProps<RootStackParams, 'Profile'> {}
 
 export function ProfileScreen({ navigation }: ProfileScreenProps) {
-  const { t } = useTranslation('ProfileScreen');
+  const { t } = useI18nTranslation('screens.ProfileScreen');
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
-  const [biometricUserId, setBiometricUserId] = useBiometricAuthSession();
+  const { isAvailable } = useBiometrics();
 
   const clearFavorites = useClearFavorites();
 
-  const enableBiometricsLogin = useCallback(
-    async (password: string) => {
-      const passwordValidationStatus = await validatePassword(
-        getAuth(),
-        password,
-      );
-      if (passwordValidationStatus.isValid) {
-        await Keychain.setGenericPassword(user?.email!, password, {
-          accessControl: Keychain.ACCESS_CONTROL.BIOMETRY_CURRENT_SET,
-          accessible: Keychain.ACCESSIBLE.WHEN_UNLOCKED,
-          securityLevel: Keychain.SECURITY_LEVEL.SECURE_HARDWARE,
-          service: KEYCHAIN_TOKEN_SERVICE_KEY,
-        });
-        setBiometricUserId(user?.uid);
-      }
-    },
-    [setBiometricUserId, user],
-  );
-
-  const disableBiometricsLogin = useCallback(async () => {
-    await Keychain.resetGenericPassword({
-      service: KEYCHAIN_TOKEN_SERVICE_KEY,
-    });
-  }, []);
-
-  const showPasswordValidationAlert = useCallback(() => {
-    Alert.prompt(
-      'Activate Biometric Authentication',
-      'Enter your password to confirm the activation of the biometric authentication',
-      enableBiometricsLogin,
-      'secure-text',
-      '',
-    );
-  }, [enableBiometricsLogin]);
-
-  const onToggleBiometricsLogin = useCallback(
-    async (enabled: boolean) => {
-      try {
-        if (enabled && user) {
-          showPasswordValidationAlert();
-        } else {
-          await disableBiometricsLogin();
-          setBiometricUserId(undefined);
-        }
-      } catch (error) {
-        console.log(error);
-      }
-    },
-    [
-      disableBiometricsLogin,
-      setBiometricUserId,
-      showPasswordValidationAlert,
-      user,
-    ],
-  );
+  const logout = useCallback(async () => {
+    try {
+      await signOut(getAuth());
+    } finally {
+      clearFavorites();
+    }
+  }, [clearFavorites]);
 
   useEffect(() => {
     return onAuthStateChanged(getAuth(), usr => {
@@ -119,24 +68,12 @@ export function ProfileScreen({ navigation }: ProfileScreenProps) {
           onPress={() => navigation.push('LanguageSetting')}
         />
         <Box height={1} bg="borderGrayLight" mx="md" />
-        <SettingItem
-          icon="face-id-filled"
-          title={t('settings.biometricAuthentication')}
-          type="switch"
-          value={!!biometricUserId}
-          onValueChange={onToggleBiometricsLogin}
-        />
+        {isAvailable && <BiometricSettingItemContainer user={user} />}
         <Box height={1} bg="borderGrayLight" mx="md" />
         <SettingItem
           icon="power-off-filled"
           title={t('settings.logout')}
-          onPress={async () => {
-            try {
-              await signOut(getAuth());
-            } finally {
-              clearFavorites();
-            }
-          }}
+          onPress={logout}
         />
       </Box>
     </Box>

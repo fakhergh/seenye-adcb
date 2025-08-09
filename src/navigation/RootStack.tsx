@@ -6,9 +6,11 @@ import {
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import { useEffect, useState } from 'react';
-import { useTranslation } from 'react-i18next';
 
 import { IconButton } from '@/components/ui/IconButton/IconButton';
+import { useBiometricSession } from '@/hooks/useBiometricSession';
+import { useI18nTranslation } from '@/hooks/useI18nTranslation';
+import { useSecureStorage } from '@/hooks/useSecureStorage';
 import { HomeTab } from '@/navigation/HomeTab';
 import { EventDetailScreen } from '@/screens/app/EventDetailScreen/EventDetailScreen';
 import { FavoritesScreen } from '@/screens/app/FavoritesScreen/FavoritesScreen';
@@ -25,31 +27,46 @@ const Stack = createNativeStackNavigator<RootStackParams>();
 export function RootStack() {
   const { colors } = useTheme<Theme>();
 
-  const { t } = useTranslation('RootStack');
+  const { t } = useI18nTranslation('navigation.RootStack');
 
   const [initializing, setInitializing] = useState(true);
+
+  const [biometricUserId, setBiometricUserId] = useBiometricSession();
+  const { resetCredentials } = useSecureStorage();
 
   const [user, setUser] = useState<FirebaseAuthTypes.User | null>(null);
 
   useEffect(() => {
-    return onAuthStateChanged(getAuth(), usr => {
+    return onAuthStateChanged(getAuth(), async usr => {
       setUser(usr);
+      if (!!biometricUserId && !!usr?.uid && biometricUserId !== usr?.uid) {
+        setBiometricUserId(undefined);
+        await resetCredentials();
+      }
+
       if (initializing) setInitializing(false);
     });
-  }, [initializing, user]);
+  }, [
+    initializing,
+    biometricUserId,
+    user,
+    setBiometricUserId,
+    resetCredentials,
+  ]);
 
   if (initializing) return null;
 
   return (
     <Stack.Navigator
       screenOptions={({ navigation: { goBack }, route: { name } }) => ({
+        headerTitleAlign: 'center',
         title: t(`routes.${uncapitalize(name)}.title`),
         headerLeft: () => (
           <IconButton
             size="sm"
             p="none"
             iconName="chevron-left-filled"
-            color="dark"
+            color="primary"
             onPress={() => goBack()}
           />
         ),

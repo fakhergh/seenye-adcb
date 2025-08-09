@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "743440694408",
+    "project_id": "seenye-adcb",
+    "storage_bucket": "seenye-adcb.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:743440694408:android:d1a8effaad6de85dfff33d",
+        "android_client_info": {
+          "package_name": "com.seenye"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC-7Ks--HWeLmYZW9gxpJcmca5wYfpHKZ0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

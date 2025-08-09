@@ -8,6 +8,7 @@ import { IconChevronRight } from '@/components/ui/Icon/icons/filled/IconChevronR
 import { IconClockFilled } from '@/components/ui/Icon/icons/filled/IconClockFilled';
 import { IconEarthFilled } from '@/components/ui/Icon/icons/filled/IconEarthFilled';
 import { IconFaceIdFilled } from '@/components/ui/Icon/icons/filled/IconFaceIdFilled';
+import { IconFlagFilled } from '@/components/ui/Icon/icons/filled/IconFlagFilled';
 import { IconHomeFilled } from '@/components/ui/Icon/icons/filled/IconHomeFilled';
 import { IconLocationPinFilled } from '@/components/ui/Icon/icons/filled/IconLocationPinFilled';
 import { IconPowerOffFilled } from '@/components/ui/Icon/icons/filled/IconPowerOffFilled';
@@ -32,7 +33,8 @@ export type IconFilledName =
   | 'clock-filled'
   | 'earth-filled'
   | 'face-id-filled'
-  | 'power-off-filled';
+  | 'power-off-filled'
+  | 'flag-filled';
 
 export type VariousIconName = 'app-logo';
 
@@ -52,6 +54,7 @@ const IconByName: Record<
   'earth-filled': IconEarthFilled,
   'face-id-filled': IconFaceIdFilled,
   'power-off-filled': IconPowerOffFilled,
+  'flag-filled': IconFlagFilled,
 
   //Outlined icons
   'bookmark-outlined': IconBookmarkOutlined,

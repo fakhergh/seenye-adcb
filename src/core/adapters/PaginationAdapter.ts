@@ -14,7 +14,7 @@ export const PaginationAdapter = {
   fromApi<T>(raw: RawPaginatedResponse<T>): PaginatedResponse<T> {
     return {
       // Map the list of items (assumed to be under `_embedded.events`)
-      items: raw._embedded.events,
+      items: raw._embedded?.events ?? [],
 
       // Spread the pagination details from the `page` object into the result
       ...raw.page,

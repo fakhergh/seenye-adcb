@@ -70,7 +70,7 @@ export function Button({
 
   return (
     <Touchable activeOpacity={0.6} {...props} style={style}>
-      {!!LeftIcon && <LeftIcon width={24} height={24} color={leftIconColor} />}
+      {!!LeftIcon && <LeftIcon width={20} height={20} color={leftIconColor} />}
       <Typography textAlign="center" variant="button" style={textStyle}>
         {Array.isArray(children)
           ? children.map((child, index) => (

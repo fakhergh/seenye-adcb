@@ -1,10 +1,10 @@
 import { Formik } from 'formik';
-import { useTranslation } from 'react-i18next';
 
 import { InputField } from '@/components/fields/InputField/InputField';
 import { Box } from '@/components/ui/Box/Box';
 import { Button } from '@/components/ui/Button/Button';
 import { yup } from '@/core/lib/yup';
+import { useI18nTranslation } from '@/hooks/useI18nTranslation';
 import { BaseFormProps } from '@/types/form';
 
 export interface RegisterFormValues {
@@ -16,9 +16,9 @@ export interface RegisterFormValues {
 export interface RegisterFormProps extends BaseFormProps<RegisterFormValues> {}
 
 const defaultValues: RegisterFormValues = {
-  name: 'Fakher Gh',
-  email: 'fekhergh93@gmail.com',
-  password: '000000',
+  name: '',
+  email: '',
+  password: '',
 };
 
 const validationSchema = yup.object().shape({
@@ -32,7 +32,7 @@ export function RegisterForm({
   loading,
   onSubmit,
 }: RegisterFormProps) {
-  const { t } = useTranslation('RegisterForm');
+  const { t } = useI18nTranslation('components.RegisterForm');
 
   return (
     <Formik

@@ -1,80 +1,132 @@
 {
-  "RootStack": {
-    "routes": {
-      "homeTab": {
-        "title": ""
-      },
-      "search": {
-        "title": ""
-      },
-      "eventDetail": {
-        "title": ""
-      },
-      "favorites": {
-        "title": "المفضلة"
-      },
-      "languageSetting": {
-        "title": "إعدادات اللغة"
+  "navigation": {
+    "RootStack": {
+      "routes": {
+        "homeTab": {
+          "title": ""
+        },
+        "login": {
+          "title": ""
+        },
+        "register": {
+          "title": ""
+        },
+        "search": {
+          "title": ""
+        },
+        "eventDetail": {
+          "title": ""
+        },
+        "favorites": {
+          "title": "المفضلة"
+        },
+        "languageSetting": {
+          "title": "إعدادات اللغة"
+        }
+      }
+    },
+    "HomeTab": {
+      "routes": {
+        "home": {
+          "title": "الرئيسية"
+        },
+        "profile": {
+          "title": "الملف الشخصي"
+        }
       }
     }
   },
-  "HomeTab": {
-    "routes": {
-      "home": {
-        "title": "القائمة الرئيسية"
+  "components": {
+    "LoginForm": {
+      "inputs": {
+        "email": "عنوان البريد الإلكتروني",
+        "password": "كلمة المرور"
       },
-      "profile": {
-        "title": "الملف الشخصي"
+      "buttons": {
+        "login": "تسجيل الدخول"
+      }
+    },
+    "RegisterForm": {
+      "inputs": {
+        "name": "الاسم الكامل",
+        "email": "عنوان البريد الإلكتروني",
+        "password": "كلمة المرور"
+      },
+      "buttons": {
+        "register": "تسجيل"
+      }
+    },
+    "BiometricDialog": {
+      "title": "تفعيل المصادقة البيومترية",
+      "description": "أدخل كلمة المرور لتأكيد تفعيل المصادقة البيومترية",
+      "buttons": {
+        "confirm": "تأكيد",
+        "cancel": "إلغاء"
       }
     }
   },
-  "LoginForm": {
-    "inputs": {
-      "email": "البريد الإلكتروني",
-      "password": "كلمة المرور"
+  "containers": {
+    "BiometricSettingItemContainer": {
+      "title": "المصادقة البيومترية"
+    }
+  },
+  "screens": {
+    "LoginScreen": {
+      "buttons": {
+        "register": "تسجيل",
+        "biometricsLogin": "تسجيل الدخول بالتحقق البيومتري"
+      },
+      "labels": {
+        "register": "ليس لديك حساب؟"
+      }
     },
-    "buttons": {
-      "login": "تسجيل الدخول"
-    }
-  },
-  "LoginScreen": {
-    "buttons": {
-      "register": "إنشاء حساب"
+    "RegisterScreen": {
+      "buttons": {
+        "login": "تسجيل الدخول"
+      },
+      "labels": {
+        "login": "هل لديك حساب؟"
+      }
     },
-    "labels": {
-      "register": "ليس لديك حساب؟"
-    }
-  },
-  "RegisterForm": {
-    "inputs": {
-      "name": "الاسم الكامل",
-      "email": "البريد الإلكتروني",
-      "password": "كلمة المرور"
+    "LanguageSettingScreen": {
+      "options": {
+        "english": "الإنجليزية",
+        "arabic": "العربية"
+      }
     },
-    "buttons": {
-      "register": "إنشاء حساب"
-    }
-  },
-  "RegisterScreen": {
-    "buttons": {
-      "login": "تسجيل الدخول"
+    "ProfileScreen": {
+      "settings": {
+        "favorites": "المفضلة",
+        "languageSettings": "إعدادات اللغة",
+        "logout": "تسجيل الخروج"
+      }
     },
-    "labels": {
-      "login": "هل لديك حساب بالفعل؟"
+    "SearchScreen": {
+      "placeholders": {
+        "search": "بحث..."
+      }
     }
   },
-  "LanguageSettingScreen": {
-    "options": {
-      "english": "الإنجليزية",
-      "arabic": "العربية"
-    }
-  },
-  "ProfileScreen": {
-    "settings": {
-      "favorites": "المفضلة",
-      "languageSettings": "إعدادات اللغة",
-      "biometricAuthentication": "المصادقة البيومترية",
-      "logout": "تسجيل الخروج"
+  "hooks": {
+    "useSecureStorage": {
+      "getCredentials": {
+        "title": "المصادقة البيومترية",
+        "subTitle": "تسجيل الدخول باستخدام Face ID / Touch ID",
+        "description": "قم بالمصادقة للمتابعة",
+        "buttons": {
+          "cancel": "إلغاء"
+        }
+      }
+    },
+    "useBiometricAuth": {
+      "authenticate": {
+        "prompt": {
+          "authenticate": "المصادقة"
+        },
+        "buttons": {
+          "cancel": "إلغاء"
+        }
+      }
     }
   }
 }

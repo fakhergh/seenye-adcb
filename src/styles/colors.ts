@@ -111,8 +111,11 @@ export const colors = {
   //shadow
   shadow: palette.black,
 
+  //header
+  headerBorder: palette.gray300,
+
   //tabBar
-  tabBarBorder: palette.transparent,
+  tabBarBorder: palette.gray300,
   activeTabBarIcon: palette.primary,
   inactiveTabBarIcon: palette.gray900,
 

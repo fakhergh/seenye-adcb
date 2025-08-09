@@ -1,5 +1,9 @@
 import type { InfiniteData } from '@tanstack/query-core';
-import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+import {
+  DefinedInitialDataInfiniteOptions,
+  useInfiniteQuery,
+  useQuery,
+} from '@tanstack/react-query';
 import { AxiosError } from 'axios';
 
 import { EventAdapter } from '@/core/adapters/EventAdapter';
@@ -24,7 +28,17 @@ export function useGetEvent(eventId: string) {
 }
 
 export function useGetEvents(
-  { size }: Omit<GetEventsQueryParams, 'page'> = { size: 10 },
+  { keyword, size }: Omit<GetEventsQueryParams, 'page'> = { size: 10 },
+  options?: Pick<
+    DefinedInitialDataInfiniteOptions<
+      PaginatedResponse<Event>,
+      AxiosError,
+      InfiniteData<PaginatedResponse<Event>>,
+      any,
+      number
+    >,
+    'enabled'
+  >,
 ) {
   return useInfiniteQuery<
     PaginatedResponse<Event>,
@@ -33,9 +47,10 @@ export function useGetEvents(
     any,
     number
   >({
-    queryKey: ['events', size],
+    ...options,
+    queryKey: ['events', size, keyword],
     queryFn: async ({ pageParam }) => {
-      const rawResponse = await getEvents({ page: pageParam, size });
+      const rawResponse = await getEvents({ page: pageParam, keyword, size });
 
       const paginatedRaw = PaginationAdapter.fromApi(rawResponse);
 

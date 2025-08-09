@@ -5,6 +5,7 @@ import { RawPaginatedResponse } from '@/core/types/response';
 export interface GetEventsQueryParams {
   size?: number;
   page?: number;
+  keyword?: string;
 }
 
 export async function getEvent(eventId: string): Promise<RawEvent> {

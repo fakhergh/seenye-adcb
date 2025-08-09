@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
-import { useTranslation } from 'react-i18next';
 
 import { Box } from '@/components/ui/Box/Box';
 import { Icon, IconFilledName } from '@/components/ui/Icon/Icon';
 import { IconAppLogo } from '@/components/ui/Icon/icons/various/IconAppLogo';
 import { Typography } from '@/components/ui/Typography/Typography';
+import { useI18nTranslation } from '@/hooks/useI18nTranslation';
 import { HomeScreen } from '@/screens/app/HomeScreen/HomeScreen';
 import { ProfileScreen } from '@/screens/app/ProfileScreen/ProfileScreen';
 import { Theme } from '@/styles';
@@ -29,7 +29,7 @@ interface HomeTabProps
 export function HomeTab({}: HomeTabProps) {
   const { colors } = useTheme<Theme>();
 
-  const { t } = useTranslation('HomeTab');
+  const { t } = useI18nTranslation('navigation.HomeTab');
 
   return (
     <Tab.Navigator
@@ -42,11 +42,11 @@ export function HomeTab({}: HomeTabProps) {
             <Typography variant="h4">Seenye</Typography>
           </Box>
         ),
-        //headerTitleAlign: 'left',
-        headerShadowVisible: false,
         tabBarActiveTintColor: colors.activeTabBarIcon,
         tabBarInactiveTintColor: colors.inactiveTabBarIcon,
         headerStyle: {
+          shadowOpacity: 1,
+          shadowColor: colors.headerBorder,
           backgroundColor: colors.backgroundLight,
         },
         tabBarStyle: {

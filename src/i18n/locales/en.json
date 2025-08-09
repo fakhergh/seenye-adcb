@@ -1,86 +1,132 @@
 {
-  "RootStack": {
-    "routes": {
-      "homeTab": {
-        "title": ""
-      },
-      "login": {
-        "title": ""
-      },
-      "register": {
-        "title": ""
-      },
-      "search": {
-        "title": ""
-      },
-      "eventDetail": {
-        "title": ""
-      },
-      "favorites": {
-        "title": "Favorites"
-      },
-      "languageSetting": {
-        "title": "Language Settings"
+  "navigation": {
+    "RootStack": {
+      "routes": {
+        "homeTab": {
+          "title": ""
+        },
+        "login": {
+          "title": ""
+        },
+        "register": {
+          "title": ""
+        },
+        "search": {
+          "title": ""
+        },
+        "eventDetail": {
+          "title": ""
+        },
+        "favorites": {
+          "title": "Favorites"
+        },
+        "languageSetting": {
+          "title": "Language Settings"
+        }
+      }
+    },
+    "HomeTab": {
+      "routes": {
+        "home": {
+          "title": "Home"
+        },
+        "profile": {
+          "title": "Profile"
+        }
       }
     }
   },
-  "HomeTab": {
-    "routes": {
-      "home": {
-        "title": "Home"
+  "components": {
+    "LoginForm": {
+      "inputs": {
+        "email": "Email address",
+        "password": "Password"
       },
-      "profile": {
-        "title": "Profile"
+      "buttons": {
+        "login": "Login"
+      }
+    },
+    "RegisterForm": {
+      "inputs": {
+        "name": "Full Name",
+        "email": "Email address",
+        "password": "Password"
+      },
+      "buttons": {
+        "register": "Register"
+      }
+    },
+    "BiometricDialog": {
+      "title": "Activate Biometric Authentication",
+      "description": "Enter your password to confirm the activation of the biometric authentication",
+      "buttons": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
       }
     }
   },
-  "LoginForm": {
-    "inputs": {
-      "email": "Email address",
-      "password": "Password"
+  "containers": {
+    "BiometricSettingItemContainer": {
+      "title": "Biometric Authentication"
+    }
+  },
+  "screens": {
+    "LoginScreen": {
+      "buttons": {
+        "register": "Register",
+        "biometricsLogin": "Login With Biometrics"
+      },
+      "labels": {
+        "register": "Don't have an account?"
+      }
     },
-    "buttons": {
-      "login": "Login"
-    }
-  },
-  "LoginScreen": {
-    "buttons": {
-      "register": "Register"
+    "RegisterScreen": {
+      "buttons": {
+        "login": "Login"
+      },
+      "labels": {
+        "login": "Already have an account?"
+      }
     },
-    "labels": {
-      "register": "Don't have an account?"
-    }
-  },
-  "RegisterForm": {
-    "inputs": {
-      "name": "Full Name",
-      "email": "Email address",
-      "password": "Password"
+    "LanguageSettingScreen": {
+      "options": {
+        "english": "English",
+        "arabic": "Arabic"
+      }
     },
-    "buttons": {
-      "register": "Register"
-    }
-  },
-  "RegisterScreen": {
-    "buttons": {
-      "login": "Login"
+    "ProfileScreen": {
+      "settings": {
+        "favorites": "Favorites",
+        "languageSettings": "Language Settings",
+        "logout": "Logout"
+      }
     },
-    "labels": {
-      "login": "Already have an account?"
+    "SearchScreen": {
+      "placeholders": {
+        "search": "Search..."
+      }
     }
   },
-  "LanguageSettingScreen": {
-    "options": {
-      "english": "English",
-      "arabic": "Arabic"
-    }
-  },
-  "ProfileScreen": {
-    "settings": {
-      "favorites": "Favorites",
-      "languageSettings": "Language Settings",
-      "biometricAuthentication": "Biometric Authentication",
-      "logout": "Logout"
+  "hooks": {
+    "useSecureStorage": {
+      "getCredentials": {
+        "title": "Biometric Authentication",
+        "subTitle": "Log in with Face ID / Touch ID",
+        "description": "Authenticate to continue",
+        "buttons": {
+          "cancel": "Cancel"
+        }
+      }
+    },
+    "useBiometricAuth": {
+      "authenticate": {
+        "prompt": {
+          "authenticate": "Authenticate"
+        },
+        "buttons": {
+          "cancel": "Cancel"
+        }
+      }
     }
   }
 }

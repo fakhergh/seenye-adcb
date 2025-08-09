@@ -9,12 +9,12 @@ import { IconButton } from '@/components/ui/IconButton/IconButton';
 import { Image } from '@/components/ui/Image/Image';
 import { MapView } from '@/components/ui/MapView/MapView';
 import { Typography } from '@/components/ui/Typography/Typography';
-import { useIsFavorite } from '@/core/hooks/useIsFavorite';
 import { useGetEvent } from '@/core/services/EventService';
 import {
   useAddFavorite,
   useDeleteFavorite,
 } from '@/core/services/FavoriteService';
+import { useIsFavorite } from '@/hooks/useIsFavorite';
 import { Screen } from '@/layouts/Screen/Screen';
 import { Theme } from '@/styles';
 import { AppStackParams } from '@/types/navigation';
@@ -59,7 +59,7 @@ export function EventDetailScreen({
           px="none"
           size="md"
           iconName={isFavorite ? 'bookmark-filled' : 'bookmark-outlined'}
-          color="dark"
+          color={isFavorite ? 'primary' : 'dark'}
           onPress={toggleFavorite}
         />
       ),
@@ -74,18 +74,13 @@ export function EventDetailScreen({
       </Box>
       <Box px="sm" my="xs" g="sm">
         <Box flexDirection="row" alignItems="center" g="xs">
-          <Icon name="clock-filled" width={20} height={20} color="gray" />
+          <Icon name="clock-filled" width={20} height={20} color="warning" />
           <Typography variant="bodyMedium">
             {formatDate(data?.date!)}
           </Typography>
         </Box>
         <Box flexDirection="row" alignItems="center" g="xs">
-          <Icon
-            name="location-pin-filled"
-            width={20}
-            height={20}
-            color="gray"
-          />
+          <Icon name="flag-filled" width={20} height={20} color="success" />
           <Typography variant="bodyMedium">{data?.venue.name}</Typography>
         </Box>
         <Box flexDirection="row" alignItems="center" g="xs">
@@ -93,7 +88,7 @@ export function EventDetailScreen({
             name="location-pin-filled"
             width={20}
             height={20}
-            color="gray"
+            color="error"
           />
           <Box flex={1}>
             <Typography variant="bodyMedium">

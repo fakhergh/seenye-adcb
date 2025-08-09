@@ -5,12 +5,12 @@ import {
   EventCardListItem,
   EventCardListItemProps,
 } from '@/components/ui/EventCardListItem/EventCardListItem';
-import { useIsFavorite } from '@/core/hooks/useIsFavorite';
 import {
   useAddFavorite,
   useDeleteFavorite,
 } from '@/core/services/FavoriteService';
 import { Event } from '@/core/types/event';
+import { useIsFavorite } from '@/hooks/useIsFavorite';
 import { AppStackParams } from '@/types/navigation';
 
 export interface EventCardListItemContainerProps

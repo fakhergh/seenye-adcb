@@ -1,5 +1,4 @@
 import { useCallback } from 'react';
-import { useTranslation } from 'react-i18next';
 import { I18nManager } from 'react-native';
 import RNRestart from 'react-native-restart';
 
@@ -7,14 +6,15 @@ import {
   Language,
   LanguageSettingItem,
 } from '@/components/ui/LanguageSettingItem/LanguageSettingItem';
-import { useLanguage } from '@/core/hooks/useLanguage';
+import { useI18nTranslation } from '@/hooks/useI18nTranslation';
+import { useLanguage } from '@/hooks/useLanguage';
 import { Screen } from '@/layouts/Screen/Screen';
 
 export function LanguageSettingScreen() {
   const {
     t,
     i18n: { language, changeLanguage },
-  } = useTranslation('LanguageSettingScreen');
+  } = useI18nTranslation('screens.LanguageSettingScreen');
   const [, setLanguage] = useLanguage();
 
   const changeAppLanguage = useCallback(
