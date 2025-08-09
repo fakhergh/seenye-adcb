@@ -8,7 +8,7 @@ import {
 import {
   useAddFavorite,
   useDeleteFavorite,
-} from '@/core/services/FavoriteService';
+} from '@/core/services/favoriteService';
 import { Event } from '@/core/types/event';
 import { useIsFavorite } from '@/hooks/useIsFavorite';
 import { AppStackParams } from '@/types/navigation';

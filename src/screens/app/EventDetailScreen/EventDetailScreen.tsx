@@ -9,11 +9,11 @@ import { IconButton } from '@/components/ui/IconButton/IconButton';
 import { Image } from '@/components/ui/Image/Image';
 import { MapView } from '@/components/ui/MapView/MapView';
 import { Typography } from '@/components/ui/Typography/Typography';
-import { useGetEvent } from '@/core/services/EventService';
+import { useGetEvent } from '@/core/services/eventService';
 import {
   useAddFavorite,
   useDeleteFavorite,
-} from '@/core/services/FavoriteService';
+} from '@/core/services/favoriteService';
 import { useIsFavorite } from '@/hooks/useIsFavorite';
 import { Screen } from '@/layouts/Screen/Screen';
 import { Theme } from '@/styles';

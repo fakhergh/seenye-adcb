@@ -1,23 +1,16 @@
-import {
-  FirebaseAuthTypes,
-  getAuth,
-  signInWithEmailAndPassword,
-} from '@react-native-firebase/auth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import { useCallback } from 'react';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
 
-import {
-  LoginForm,
-  LoginFormValues,
-} from '@/components/forms/LoginForm/LoginForm';
+import { LoginForm } from '@/components/forms/LoginForm/LoginForm';
 import { Box } from '@/components/ui/Box/Box';
 import { Button } from '@/components/ui/Button/Button';
 import { IconFaceIdFilled } from '@/components/ui/Icon/icons/filled/IconFaceIdFilled';
 import { IconAppLogo } from '@/components/ui/Icon/icons/various/IconAppLogo';
 import { Typography } from '@/components/ui/Typography/Typography';
 import { KEYBOARD_AVOIDING_VIEW_BEHAVIOUR } from '@/constants/config';
+import { useLogin } from '@/core/services/authService';
 import { withSafeAreaView } from '@/hocs/withSafeAreaView';
 import { useBiometricSession } from '@/hooks/useBiometricSession';
 import { useI18nTranslation } from '@/hooks/useI18nTranslation';
@@ -40,39 +33,18 @@ export const LoginScreen = withSafeAreaView(function LoginScreen({
   const [biometricUserId] = useBiometricSession();
   const { getCredentials } = useSecureStorage();
 
+  const { mutate: login, isPending } = useLogin();
+
   const onBiometricsLogin = useCallback(async () => {
-    try {
-      const userCredentials = await getCredentials();
-      console.log('userCredentials: ', userCredentials);
+    const userCredentials = await getCredentials();
 
-      if (userCredentials) {
-        await signInWithEmailAndPassword(
-          getAuth(),
-          userCredentials.username,
-          userCredentials.password,
-        );
-      }
-    } catch (error) {
-      console.log('error: ', error);
+    if (userCredentials) {
+      login({
+        email: userCredentials.username,
+        password: userCredentials.password,
+      });
     }
-  }, [getCredentials]);
-
-  const onSubmit = useCallback(async (values: LoginFormValues) => {
-    try {
-      await signInWithEmailAndPassword(
-        getAuth(),
-        values.email,
-        values.password,
-      );
-    } catch (error: any) {
-      console.log(error);
-      const { code } = error as FirebaseAuthTypes.NativeFirebaseAuthError;
-
-      if (code === 'auth/invalid-credential') {
-        console.log('invalid creds');
-      }
-    }
-  }, []);
+  }, [getCredentials, login]);
 
   return (
     <KeyboardAvoidingView
@@ -88,7 +60,7 @@ export const LoginScreen = withSafeAreaView(function LoginScreen({
             />
           </Box>
 
-          <LoginForm onSubmit={onSubmit} />
+          <LoginForm loading={isPending} onSubmit={login} />
           {!!biometricUserId && (
             <Button
               leftIcon={IconFaceIdFilled}

@@ -3,7 +3,7 @@ import { useCallback, useMemo } from 'react';
 import { FlatList, ListRenderItem } from 'react-native';
 
 import { EventCardListItemContainer } from '@/containers/EventCardListItemContainer/EventCardListItemContainer';
-import { useGetFavorites } from '@/core/services/FavoriteService';
+import { useGetFavorites } from '@/core/services/favoriteService';
 import { Event } from '@/core/types/event';
 import { Screen } from '@/layouts/Screen/Screen';
 import { Theme } from '@/styles';

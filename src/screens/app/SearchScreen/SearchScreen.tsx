@@ -11,7 +11,7 @@ import {
 
 import { Box } from '@/components/ui/Box/Box';
 import { EventCardListItemContainer } from '@/containers/EventCardListItemContainer/EventCardListItemContainer';
-import { useGetEvents } from '@/core/services/EventService';
+import { useGetEvents } from '@/core/services/eventService';
 import { Event } from '@/core/types/event';
 import { withSafeAreaView } from '@/hocs/withSafeAreaView';
 import { useDebounce } from '@/hooks/useDebounce';

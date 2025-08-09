@@ -7,7 +7,7 @@ import { ActivityIndicator, FlatList, ListRenderItem } from 'react-native';
 import { Box } from '@/components/ui/Box/Box';
 import { IconButton } from '@/components/ui/IconButton/IconButton';
 import { EventCardListItemContainer } from '@/containers/EventCardListItemContainer/EventCardListItemContainer';
-import { useGetEvents } from '@/core/services/EventService';
+import { useGetEvents } from '@/core/services/eventService';
 import { Event } from '@/core/types/event';
 import { Screen } from '@/layouts/Screen/Screen';
 import { Theme } from '@/styles';

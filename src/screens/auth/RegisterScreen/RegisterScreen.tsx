@@ -1,8 +1,3 @@
-import {
-  createUserWithEmailAndPassword,
-  FirebaseAuthTypes,
-  getAuth,
-} from '@react-native-firebase/auth';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { useTheme } from '@shopify/restyle';
 import { KeyboardAvoidingView, StyleSheet } from 'react-native';
@@ -13,6 +8,7 @@ import { Button } from '@/components/ui/Button/Button';
 import { IconAppLogo } from '@/components/ui/Icon/icons/various/IconAppLogo';
 import { Typography } from '@/components/ui/Typography/Typography';
 import { KEYBOARD_AVOIDING_VIEW_BEHAVIOUR } from '@/constants/config';
+import { useRegister } from '@/core/services/authService';
 import { withSafeAreaView } from '@/hocs/withSafeAreaView';
 import { useI18nTranslation } from '@/hooks/useI18nTranslation';
 import { Screen } from '@/layouts/Screen/Screen';
@@ -30,6 +26,8 @@ export const RegisterScreen = withSafeAreaView(function RegisterScreen({
 
   const { t } = useI18nTranslation('screens.RegisterScreen');
 
+  const { mutate: register, isPending } = useRegister();
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -44,24 +42,7 @@ export const RegisterScreen = withSafeAreaView(function RegisterScreen({
             />
           </Box>
 
-          <RegisterForm
-            onSubmit={async values => {
-              try {
-                const userCredentials = await createUserWithEmailAndPassword(
-                  getAuth(),
-                  values.email,
-                  values.password,
-                );
-                await userCredentials.user.updateProfile({
-                  displayName: values.name,
-                });
-              } catch (error: any) {
-                const { code } =
-                  error as FirebaseAuthTypes.NativeFirebaseAuthError;
-                console.log(code);
-              }
-            }}
-          />
+          <RegisterForm loading={isPending} onSubmit={register} />
         </Box>
 
         <Box

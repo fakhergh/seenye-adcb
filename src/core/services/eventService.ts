@@ -12,7 +12,7 @@ import {
   getEvent,
   getEvents,
   GetEventsQueryParams,
-} from '@/core/services/ApiService';
+} from '@/core/services/apiService';
 import { Event } from '@/core/types/event';
 import { PaginatedResponse } from '@/core/types/response';
 

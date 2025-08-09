@@ -11,7 +11,7 @@ import { Box } from '@/components/ui/Box/Box';
 import { SettingItem } from '@/components/ui/SettingItem/SettingItem';
 import { Typography } from '@/components/ui/Typography/Typography';
 import { BiometricSettingItemContainer } from '@/containers/BiometricSettingItemContainer/BiometricSettingItemContainer';
-import { useClearFavorites } from '@/core/services/FavoriteService';
+import { useClearFavorites } from '@/core/services/favoriteService';
 import { useBiometrics } from '@/hooks/useBiometrics';
 import { useI18nTranslation } from '@/hooks/useI18nTranslation';
 import { RootStackParams } from '@/types/navigation';
