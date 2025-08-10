@@ -10,7 +10,7 @@ _The name "Seenye" is inspired by the French word "signe," reflecting the app's 
 
 Here is a recorded demo of the app running on my device:
 
-[![Seenye App Demo](https://img.youtube.com/vi/xhQ9LCVaZ1k/0.jpg)](https://youtu.be/xhQ9LCVaZ1k)
+<a href="https://player.vimeo.com/video/1108764837" target="_blank"><img src="assets/thumbnail.jpg" width="200" /></a>
 
 _Click the image above to watch the video._
 
